@@ -51,10 +51,10 @@ print('')
 # Prepare dataset
 print('load cifar10 dataset from keras')
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
-x_train /= 255
-x_test /= 255
 x_train = x_train.astype(np.float32)
 x_test = x_test.astype(np.float32)
+x_train /= 255
+x_test /= 255
 y_train = y_train.reshape((len(y_train),)).astype(np.int32)
 y_test = y_test.reshape((len(y_test),)).astype(np.int32)
 print('datasets shape: {}'.format(x_train.shape))
@@ -73,7 +73,7 @@ if args.gpu >= 0:
 xp = np if args.gpu < 0 else cuda.cupy
 
 # Setup optimizer
-optimizer = optimizers.Adam()
+optimizer = optimizers.SMORMS3()
 optimizer.setup(model)
 optimizer.add_hook(weight_clip.WeightClip())
 
